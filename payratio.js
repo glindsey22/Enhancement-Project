@@ -98,9 +98,7 @@ d3.csv("payratio.csv").then(function (data) {
         };
     });
 
-    //console.log("Nodes:", nodes);
     console.log("Ratios:", ratios);
-    //console.log("Max ratio:", d3.max(ratios));
     console.log("Max CEO pay:", d3.max(ceoPay));
 
 
@@ -121,17 +119,10 @@ d3.csv("payratio.csv").then(function (data) {
         .on("tick", tick)
         .stop();
 
-    //xAxis = d3.axisBottom(x);
-
-    svg = d3.select("body").append("svg")
+    svg = d3.select("#svgcontainer").append("svg")
         .attr("width", total_width)
         .attr("height", total_height)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    /*svg.append("g")
-            .attr("class", "axis axis--x")
-            .attr("transform", "translate(0," + (height) + ")")
-            .call(d3.axisBottom(xScale))*/
 
     var median = d3.median(d3.values(ratios));
     var diff = 1000000;
