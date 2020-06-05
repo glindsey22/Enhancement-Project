@@ -1,0 +1,87 @@
+h1 {
+    padding-top: 15;
+    padding-left: 230;
+    font: 40px sans-serif;
+}
+
+h2 {
+    text-align: left;
+    padding-left: 50;
+    padding-right: 300;
+    text-indent: 0em;
+    font: 12px sans-serif;
+}
+
+hr {
+    left: 80px;
+    width: 850px;
+    stroke: "lightgrey";
+    position: absolute;
+    top: 70px;
+}
+
+
+div.tooltip {
+    position: absolute;
+    text-align: left;
+    width: 165px;
+    height: 115px;
+    padding: 2px;
+    font: 11.5px sans-serif;
+    background: aliceblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.axis line,
+.axis path {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+    font: 14px sans-serif;
+}
+
+.right {
+    float: right;
+}
+
+h1 {
+    shape-rendering: crispEdges;
+}
+
+#circle-hover:hover {
+    opacity: 0.4;
+}
+
+#topnav{ 
+     margin-left: 15%; 
+     padding: 15px; 
+     border-radius: 10px; 
+   } 
+
+/* Style the search box inside the navigation bar */
+.topnav input[type=text] {
+    position: absolute;
+    left: 4%;
+    top: 25%;
+    width: 15%;
+    float: right;
+    padding: 4px;
+    font-size: 10px;
+    -webkit-transition: width 0.15s ease-in-out; 
+      transition: width 0.15s ease-in-out; 
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
