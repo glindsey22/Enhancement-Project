@@ -171,8 +171,32 @@ d3.csv("payratio.csv").then(function (data) {
         var num = 100;
         force.tick(100);
         force.stop();
+        
+        /*------------- COLOR AND SIZE LEGENDS --------------------*/
 
-        var legend = svg.selectAll("rect")
+        var legend = svg.append("g");
+        var offset = 200;
+        
+        
+
+        legend.append("text")
+            .attr("x", 5)
+            .attr("y", height - 6)
+            .style("text-anchor", "start")
+            .style("font-family", "sans-serif")
+            .style("font-size", "9px")
+            .style("font-weight", "bold")
+            .text("CHART KEY");
+        
+        legend.append("text")
+            .attr("x", offset - 5)
+            .attr("y", height - 6)
+            .style("text-anchor", "end")
+            .style("font-family", "sans-serif")
+            .style("font-size", "9px")
+            .text("Color shows pay ratio");
+
+        legend.selectAll("rect")
             .data(color)
             .enter()
             .append("rect")
@@ -181,28 +205,55 @@ d3.csv("payratio.csv").then(function (data) {
                 return d;
             })
             .attr("x", function (d, i) {
-                return i * 40;
+                return i * 40 + offset;
             })
             .attr("y", height - 15)
             .attr("width", 40)
             .attr("height", 10);
 
-        svg.selectAll("line")
+        legend.selectAll("line")
             .data(color)
             .enter()
             .append("line")
             .attr("class", "legend ticks")
             .attr("x1", function (d, i) {
-                return (i+1) * 40;
+                return (i * 40) + offset;
             })
             .attr("y1", height - 20)
             .attr("x2", function (d, i) {
-                return (i+1) * 40;
+                return (i * 40) + offset;
             })
             .attr("y2", height)
             .style("stroke-width", 0.5)
-            .style("stroke", "black")
+            .style("stroke", function (d, i) {
+                if (i == 0) {
+                    return "none";
+                } else {
+                    return "black";
+                }
+            })
             .style("fill", "none");
+
+        var thresholds = colorScale.thresholds();
+
+        console.log("Thresholds:", thresholds);
+
+        legend.selectAll("text.legend")
+            .data(thresholds)
+            .enter()
+            .append("text")
+            .attr("x", function (d, i) {
+                return ((i + 1) * 40) + offset;
+            })
+            .attr("y", height + 8)
+            .style("text-anchor", "middle")
+            .style("font-family", "sans-serif")
+            .style("font-size", "8px")
+            .text(function (d) {
+                return Math.round(d) + ":1";
+            });
+        
+        /*---------- DRAW THE CIRCLES AND STORE NEEDED VALUES -------*/
 
         var x_median;
         var y_median;
@@ -253,6 +304,8 @@ d3.csv("payratio.csv").then(function (data) {
             .attr("r", function (d) {
                 return d.radius;
             });
+        
+        /*--------------------------- X-Axis --------------------------*/
 
         var ticks = [x_0, x_300, x_630, x_930, x_1190, x_1500, x_1900];
         console.log("ticks:", ticks);
@@ -277,7 +330,7 @@ d3.csv("payratio.csv").then(function (data) {
                 .style("text-anchor", "middle")
                 .style("font-family", "sans-serif")
                 .style("font-size", "8px")
-                .text(vals[counter]);
+                .text(vals[counter] + ":1");
 
             counter = counter + 1;
         }
@@ -300,6 +353,8 @@ d3.csv("payratio.csv").then(function (data) {
             .style("font-family", "sans-serif")
             .style("font-size", "7px")
             .text("2014");
+        
+        /*------------------ MID LINES/TEXT ----------------------*/
 
         mid_line
             .attr("x1", 25)
@@ -338,6 +393,8 @@ d3.csv("payratio.csv").then(function (data) {
             .style("font-family", "sans-serif")
             .style("font-size", "8px")
             .text("on the S&P 500");
+        
+        /*--------------------- MEDIAN LINE/TEXT ---------------------*/
 
 
         svg.append("line").transition().duration(1000)
@@ -345,7 +402,7 @@ d3.csv("payratio.csv").then(function (data) {
             .attr("x1", x_median)
             .attr("y1", height - 100)
             .attr("x2", x_median)
-            .attr("y2", y_median)
+            .attr("y2", 20)
             .style("stroke-width", 1)
             .style("stroke", "black")
             .style("fill", "none");
@@ -394,7 +451,7 @@ d3.csv("payratio.csv").then(function (data) {
                     .duration(200)
                     .style("opacity", 1.0)
 
-                div.html("<center>-" + d.Employer + "-</center>" + " <center> CEO: " + d.CEO + "</center><br/>" + "Worker Pay: <span class=\"right\">" + "$" + parse(d.Worker_Pay) + "</span><br />" + "CEO Pay: <span class=\"right\">" + "$" + parse(d.CEO_Pay_TT) + "</span><br />" + "CEO/Worker Pay Ratio: <span class=\"right\">" + parse(d.Ratio) + "</span><br />" + "-----------------------------------------" + "<br/>" + "Glassdoor Rating: <span class=\"right\">" + parse(d.Rating) + "</span>")
+                div.html("<center>-" + d.Employer + "-</center>" + " <center> CEO: " + d.CEO + "</center><br/>" + "Worker Pay: <span class=\"right\">" + "$" + parse(d.Worker_Pay) + "</span><br />" + "CEO Pay: <span class=\"right\">" + "$" + parse(d.CEO_Pay_TT) + "</span><br />" + "CEO/Worker Pay Ratio: <span class=\"right\">" + parse(d.Ratio) + ":1" + "</span><br />" + "-----------------------------------------" + "<br/>" + "Glassdoor Rating: <span class=\"right\">" + parse(d.Rating) + "</span>")
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY) + "px");
 
