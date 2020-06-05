@@ -57,7 +57,7 @@ h1 {
 /* Style the search box inside the navigation bar */
 .topnav input[type=text] {
     position: relative;
-    left: 0%;
+    left: -100;
     top: 0%;
     width: 15%;
     float: right;
