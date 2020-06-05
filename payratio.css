@@ -69,19 +69,4 @@ h1 {
     float: right;
     padding: 4px;
     font-size: 10px;
-    -webkit-transition: width 0.15s ease-in-out; 
-      transition: width 0.15s ease-in-out; 
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
 }
