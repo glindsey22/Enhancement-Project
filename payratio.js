@@ -171,13 +171,11 @@ d3.csv("payratio.csv").then(function (data) {
         var num = 100;
         force.tick(100);
         force.stop();
-        
+
         /*------------- COLOR AND SIZE LEGENDS --------------------*/
 
         var legend = svg.append("g");
         var offset = 200;
-        
-        
 
         legend.append("text")
             .attr("x", 5)
@@ -187,7 +185,7 @@ d3.csv("payratio.csv").then(function (data) {
             .style("font-size", "9px")
             .style("font-weight", "bold")
             .text("CHART KEY");
-        
+
         legend.append("text")
             .attr("x", offset - 5)
             .attr("y", height - 6)
@@ -252,7 +250,7 @@ d3.csv("payratio.csv").then(function (data) {
             .text(function (d) {
                 return Math.round(d) + ":1";
             });
-        
+
         /*---------- DRAW THE CIRCLES AND STORE NEEDED VALUES -------*/
 
         var x_median;
@@ -268,7 +266,10 @@ d3.csv("payratio.csv").then(function (data) {
             .attr("class", "x axis")
 
         var circle = svg.selectAll("circle")
-            .data(nodes).enter().append("circle").transition().duration(2000).ease(d3.easeQuadIn)
+            .data(nodes)
+            .enter()
+            .append("circle")
+            .transition().duration(2000).ease(d3.easeQuadIn)
             .style("fill", function (d) {
                 return d.color;
             })
@@ -304,7 +305,7 @@ d3.csv("payratio.csv").then(function (data) {
             .attr("r", function (d) {
                 return d.radius;
             });
-        
+
         /*--------------------------- X-Axis --------------------------*/
 
         var ticks = [x_0, x_300, x_630, x_930, x_1190, x_1500, x_1900];
@@ -353,7 +354,7 @@ d3.csv("payratio.csv").then(function (data) {
             .style("font-family", "sans-serif")
             .style("font-size", "7px")
             .text("2014");
-        
+
         /*------------------ MID LINES/TEXT ----------------------*/
 
         mid_line
@@ -393,7 +394,7 @@ d3.csv("payratio.csv").then(function (data) {
             .style("font-family", "sans-serif")
             .style("font-size", "8px")
             .text("on the S&P 500");
-        
+
         /*--------------------- MEDIAN LINE/TEXT ---------------------*/
 
 
@@ -473,6 +474,44 @@ d3.csv("payratio.csv").then(function (data) {
                     .style("stroke", "#66646d")
                     .attr("stroke-width", "0.5")
             });
+
+        var new_start = offset + (7 * 40);
+
+        /*---------------- DRAW LEGEND CIRCLES -----------------------*/
+
+        legend.append("text")
+            .attr("x", new_start)
+            .attr("y", height - 6)
+            .style("text-anchor", "start")
+            .style("font-family", "sans-serif")
+            .style("font-size", "9px")
+            .text("Size shows CEO pay");
+
+        var circle_sizes = [95000000 / 4, 95000000 / 2, 95000000 * 3 / 4, 95000000];
+
+        var end_prev = new_start + 100;
+
+        for (var i = 0; i < circle_sizes.length; i++) {
+            if (i > 0) {
+                end_prev = end_prev + 10 + 2 * rad(circle_sizes[i - 1]);
+            }
+            legend
+                .append("circle")
+                .style("fill", "#D3D3D3")
+                .style("stroke", "#66646d")
+                .attr("stroke-width", "0.5")
+                .attr("cx", end_prev + 10)
+                .attr("cy", height - 10)
+                .attr("r", rad(circle_sizes[i]));
+
+            legend.append("text")
+                .attr("x", end_prev + 10)
+                .attr("y", height - 10 - rad(circle_sizes[i]) - 3)
+                .style("text-anchor", "middle")
+                .style("font-family", "sans-serif")
+                .style("font-size", "8px")
+                .text("$"+circle_sizes[i]/1000000+" B")
+        }
 
         loading.remove();
     }

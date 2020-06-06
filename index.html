@@ -1,9 +1,11 @@
 <html>
-    <head>
+
+<head>
     <meta charset="utf-8">
     <title>CEO/Worker Pay Ratio</title>
     <link rel="stylesheet" type="text/css" href="payratio.css">
-    <script src="https://d3js.org/d3.v5.js"></script></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    </script>
     <style type="text/css"></style>
 </head>
 
@@ -13,17 +15,18 @@
     </h1>
 
     <h2 style="color: black">
-        The purpose of this visualization is to shed light on the disproportionate amount of money most CEOs in American companies make when compared to the average salary of their respective employees. The median ratio between CEO and average employee pay is 197:1,it can be observed that after this mark the average CEO pay increases significantly, as can be seen in the increased size of the circles.
+        The purpose of this visualization is to shed light on the disproportionate amount of money most CEOs in American companies make when compared to the average salary of their respective employees. The median ratio between CEO and average employee pay is 197:1, it can be observed that after this mark the average CEO pay increases significantly, as can be seen in the increased radii of the circles.
     </h2>
 
-    <div class="topnav">
-        
-        <input id="search" type="text" onkeyup="key_up()" placeholder="Search for a company...">
-    </div>
-
-    <div id = "svgcontainer"></div>
+    <div id="svgcontainer"></div>
 
     <script type="text/javascript" src="payratio.js">
     </script>
-    
-</body></html>
+
+    <div class="topnav">
+        <input id="search" type="text" onkeyup="key_up()" placeholder="Search for a company...">
+    </div>
+
+</body>
+
+</html>
