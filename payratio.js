@@ -52,7 +52,7 @@ var clusters = new Array(m);
 console.log("x scale:", x);
 
 // Map the basic node data to d3-friendly format.
-var nodes, force, svg, xAxis;
+var nodes, force, svg, xAxis, legend;
 /*data.map(function(node, index) {
   return {
     radius: node.size / 100,
@@ -174,7 +174,7 @@ d3.csv("payratio.csv").then(function (data) {
 
         /*------------- COLOR AND SIZE LEGENDS --------------------*/
 
-        var legend = svg.append("g");
+        legend = svg.append("g");
         var offset = 200;
 
         legend.append("text")
@@ -475,44 +475,6 @@ d3.csv("payratio.csv").then(function (data) {
                     .attr("stroke-width", "0.5")
             });
 
-        var new_start = offset + (7 * 40);
-
-        /*---------------- DRAW LEGEND CIRCLES -----------------------*/
-
-        legend.append("text")
-            .attr("x", new_start)
-            .attr("y", height - 6)
-            .style("text-anchor", "start")
-            .style("font-family", "sans-serif")
-            .style("font-size", "9px")
-            .text("Size shows CEO pay");
-
-        var circle_sizes = [95000000 / 4, 95000000 / 2, 95000000 * 3 / 4, 95000000];
-
-        var end_prev = new_start + 100;
-
-        for (var i = 0; i < circle_sizes.length; i++) {
-            if (i > 0) {
-                end_prev = end_prev + 10 + 2 * rad(circle_sizes[i - 1]);
-            }
-            legend
-                .append("circle")
-                .style("fill", "#D3D3D3")
-                .style("stroke", "#66646d")
-                .attr("stroke-width", "0.5")
-                .attr("cx", end_prev + 10)
-                .attr("cy", height - 10)
-                .attr("r", rad(circle_sizes[i]));
-
-            legend.append("text")
-                .attr("x", end_prev + 10)
-                .attr("y", height - 10 - rad(circle_sizes[i]) - 3)
-                .style("text-anchor", "middle")
-                .style("font-family", "sans-serif")
-                .style("font-size", "8px")
-                .text("$"+circle_sizes[i]/1000000+" B")
-        }
-
         loading.remove();
     }
 
@@ -543,3 +505,41 @@ function key_up() {
             .style("fill-opacity", "1");
     }
 }
+
+var new_start = 100 + (7 * 40);
+
+/*---------------- DRAW LEGEND CIRCLES -----------------------*/
+
+/*legend.append("text")
+    .attr("x", new_start)
+    .attr("y", height - 6)
+    .style("text-anchor", "start")
+    .style("font-family", "sans-serif")
+    .style("font-size", "9px")
+    .text("Size shows CEO pay");
+
+var circle_sizes = [95000000 / 4, 95000000 / 2, 95000000 * 3 / 4, 95000000];
+
+var end_prev = new_start + 100;
+
+for (var i = 0; i < circle_sizes.length; i++) {
+    if (i > 0) {
+        end_prev = end_prev + 10 + 2 * rad(circle_sizes[i - 1]);
+    }
+    legend
+        .append("circle")
+        .style("fill", "#D3D3D3")
+        .style("stroke", "#66646d")
+        .attr("stroke-width", "0.5")
+        .attr("cx", end_prev + 10)
+        .attr("cy", height - 10)
+        .attr("r", rad(circle_sizes[i]));
+
+    legend.append("text")
+        .attr("x", end_prev + 10)
+        .attr("y", height - 10 - rad(circle_sizes[i]) - 3)
+        .style("text-anchor", "middle")
+        .style("font-family", "sans-serif")
+        .style("font-size", "8px")
+        .text("$" + circle_sizes[i] / 1000000 + " B")
+}*/
