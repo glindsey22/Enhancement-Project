@@ -58,11 +58,7 @@ function tick() {
 	for (i = 0; i < nodes.length; i++) {
 		var node = nodes[i];
 		//console.log("Before tick x of", node.Employer, "is", d.x);
-		if (node.x > 900) {
-			node.cx = 900;
-		} else {
-			node.cx = node.x;
-		}
+		node.cx = node.x;
 		node.cy = node.y;
 	}
 }
@@ -315,8 +311,10 @@ function renderGraph() {
 			}
 			return end_prev + 10;
 		})
-		.attr("y", function (d) {
-			return (height - 10 - rad(d) - 3);
+		.attr("y", function (d, i) {
+			if(i==1){
+				return (height - 10 - rad(d) - 5)
+			}else{return (height - 10 - rad(d) - 3);}
 		})
 		.style("text-anchor", "middle")
 		.style("font-family", "sans-serif")
