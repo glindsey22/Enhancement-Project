@@ -43,7 +43,8 @@ var nodes,
 	all_nodes,
 	div,
 	parse,
-	tooltip;
+	tooltip,
+	info;
 
 var ratios = {};
 var industries = [];
@@ -123,7 +124,7 @@ d3.csv("payratio.csv").then(function (data) {
 
 	simulation = d3.forceSimulation(nodes)
 		.force('charge', d3.forceManyBody().strength(-8))
-		.force('center', d3.forceCenter(width / 2 - 215, height / 3))
+		.force('center', d3.forceCenter(width / 2 - 235, height / 3))
 		.force('forceX', d3.forceX().x(function (d) {
 			return d.x;
 		}).strength(0.6))
@@ -320,9 +321,13 @@ function renderGraph() {
 		.style("text-anchor", "middle")
 		.style("font-family", "sans-serif")
 		.style("font-size", "8px")
-		.text(function (d) {
+		.text(function (d, i) {
 			//console.log("d in circle legend:", d);
-			return "$" + d / 1000000 + " B";
+			if (i == 3) {
+				return "$" + 156 + " M";
+			} else {
+				return "$" + d / 1000000 + " M";
+			}
 		})
 
 	/*---------- DRAW THE CIRCLES AND STORE NEEDED VALUES -------*/
@@ -334,10 +339,19 @@ function renderGraph() {
 
 	var x_0, x_300, x_630, x_930, x_1190, x_1500, x_1900;
 
-	var mid_line = svg.append("line")
+	var mid_line = svg
+		.append("line")
 		.transition()
 		.duration(1000)
-		.attr("class", "x axis")
+		.attr("class", "x axis");
+
+
+	info = svg.append("g");
+
+	var info_line = info.append("line")
+		.transition()
+		.duration(1000)
+		.attr("class", "x axis");
 
 	var circle = svg.selectAll("circle.chart")
 		.data(nodes)
@@ -381,6 +395,31 @@ function renderGraph() {
 		.attr("r", function (d) {
 			return d.radius;
 		});
+
+	/*--------------------------- INFO ----------------------------*/
+
+	//Each circle represents a company, sized by its market capitalization. The largest is Apple, at more than $400 billion, with an effective tax rate of 14 percent.
+
+	info_line
+		.attr("x1", x_1900)
+		.attr("y1", height - 150)
+		.attr("x2", x_1900)
+		.attr("y2", mid_height)
+		.style("stroke-width", 1)
+		.style("stroke-dasharray", ("1, 1"))
+		.style("stroke", "grey")
+		.style("fill", "none");
+
+	info
+		.append("text")
+		.attr("class", "node")
+		.attr("x", width)
+		.attr("y", height - 140)
+		.style("text-anchor", "right")
+		.style("font-family", "sans-serif")
+		.style("font-size", "8px")
+		.text("Each circle represents a company, sized by its CEO pay. The largest is Discover Comm., at more than $156 million, with a CEO employee ratio of 1951:1.")
+		.call(wrap, 100);
 
 	/*--------------------------- X-Axis --------------------------*/
 
@@ -436,7 +475,7 @@ function renderGraph() {
 	mid_line
 		.attr("x1", 25)
 		.attr("y1", mid_height)
-		.attr("x2", total_width - 5)
+		.attr("x2", total_width - 25)
 		.attr("y2", mid_height)
 		.style("stroke-width", 1)
 		.style("stroke-dasharray", ("1, 1"))
@@ -445,10 +484,10 @@ function renderGraph() {
 
 	//https://stackoverflow.com/questions/15615552/get-div-height-with-plain-javascript
 	var clientHeight = (document.getElementById('svgcontainer').clientHeight * ((mid_height + margin.top) / total_height)) + document.getElementById('top').clientHeight + document.getElementById('h2').clientHeight + document.getElementById('h1').clientHeight + 35;
-	
+
 	//https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element-relative-to-the-browser-window
 	var svgRect = document.getElementById('svg').getBoundingClientRect();
-	
+
 	console.log("bodyRect:", svgRect);
 
 	d3.select("#blurb")
@@ -556,13 +595,22 @@ function key_up() {
 					if ((d.Employer.toLowerCase()).includes(input)) {
 						return 1;
 					} else {
-						return 0.3;
+						return 0.1;
+					}
+				}
+			})
+			.attr("stroke-width", function (d) {
+				if (d.Employer != undefined) {
+					if ((d.Employer.toLowerCase()).includes(input)) {
+						return 1;
+					} else {
+						return 0.5;
 					}
 				}
 			});
 	} else {
 		svg.selectAll("circle")
-			.style("fill-opacity", "1");
+			.style("fill-opacity", "1").attr("stroke-width", 0.5);
 	}
 }
 
@@ -620,6 +668,12 @@ d3.select("#options").on("change", function (d) {
 	industry = this.value;
 	console.log("Selected group:", industry);
 
+	if (industry != "All Industries") {
+		info.style("opacity", 0);
+	} else {
+		info.style("opacity", 1);
+	}
+
 	var selected_companies = [];
 
 	for (company of companies) {
@@ -658,3 +712,37 @@ d3.select("#options").on("change", function (d) {
 
 	update(selected_companies);
 });
+
+// Code from: https://stackoverflow.com/questions/24784302/wrapping-text-in-d3
+function wrap(text, width) {
+	text.each(function () {
+		var text = d3.select(this),
+			words = text.text().split(/\s+/).reverse(),
+			word,
+			line = [],
+			lineNumber = 0,
+			lineHeight = 1.1, // ems
+			x = text.attr("x"),
+			y = text.attr("y"),
+			dy = 0, //parseFloat(text.attr("dy")),
+			tspan = text.text(null)
+			.append("tspan")
+			.attr("x", x)
+			.attr("y", y)
+			.attr("dy", dy + "em");
+		while (word = words.pop()) {
+			line.push(word);
+			tspan.text(line.join(" "));
+			if (tspan.node().getComputedTextLength() > width) {
+				line.pop();
+				tspan.text(line.join(" "));
+				line = [word];
+				tspan = text.append("tspan")
+					.attr("x", x)
+					.attr("y", y)
+					.attr("dy", ++lineNumber * lineHeight + dy + "em")
+					.text(word);
+			}
+		}
+	});
+}
