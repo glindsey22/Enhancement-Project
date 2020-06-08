@@ -75,14 +75,7 @@ select {
     padding: 4px;
 }
 
-/* Style the search box inside the navigation bar 
-     margin-left: 15%; 
-     padding: 15px; 
-     border-radius: 10px;
-
-    left: 4%;
-    top: 25%;
-    width: 15%;*/
+/* Style the search box inside the navigation bar */
 .topnav input[type=text] {
     position: relative;
     padding: 5px;

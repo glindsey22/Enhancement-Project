@@ -1,86 +1,96 @@
-<!--- https://bl.ocks.org/d3indepth/fee5ce57c3fc3e94c3332577d1415df4 --->
+<!--- 
+Links:
+
+Presentation hosted: file:///C:/Users/glind/Downloads/slides-deck-d985c0.html
+Code hosted: https://glindsey22.github.io/Enhancement-Project/
+
+Sources:
+https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/CEOvsWorkerPay/
+https://bl.ocks.org/d3indepth/fee5ce57c3fc3e94c3332577d1415df4
+https://archive.nytimes.com/www.nytimes.com/interactive/2013/05/25/sunday-review/corporate-taxes.html
+https://stackoverflow.com/questions/24784302/wrapping-text-in-d3
+--->
 <html>
-
-<head>
-	<meta charset="utf-8">
-	<title>CEO/Worker Pay Ratio</title>
-	<link rel="stylesheet" type="text/css" href="payratio.css">
-	<script src="https://d3js.org/d3.v5.js"></script>
-	</script>
-	<style type="text/css"></style>
 	<body style="background-color:white;">
-</head>
 
-<body>
-	<h1 style="color: black" id="h1">
-		<bold> CEO/Worker Pay Ratio, 2014 </bold>
-	</h1>
+	<head>
+		<meta charset="utf-8">
+		<title>CEO/Worker Pay Ratio</title>
+		<link rel="stylesheet" type="text/css" href="payratio.css">
+		<script src="https://d3js.org/d3.v5.js"></script>
+		<style type="text/css"></style>
+	</head>
 
-	<h2 style="color: black" id="h2">
-		The purpose of this visualization is to shed light on the disproportionate amount of money most CEOs in American companies make when compared to the average salary of their employees. The median ratio between CEO and employee pay is 197:1, it can be observed that after this mark the average CEO pay increases significantly. 
-		
-		<br>
-		<br>
-		
-		Each circle below represents a company from the S&ampP 500 in 2014.  They are ordered along the axis according to the companies respective pay ratios. Note that the locations along the x-axis are approximate, positions may vary due to the force simulation. Each company is classed into an industry, using the <a href="https://en.wikipedia.org/wiki/Global_Industry_Classification_Standard"> Global Industry Classification Standard</a> (GICS). Consumer Discretionary and Consumer Staples were combined into one category for convinence. Additonally, circle size is used to represent CEO pay. It is interesting to observe that some companies have smaller pay ratios but higher CEO pay than the respective companies with similar ratios.
-	</h2>
+	<body>
+		<h1 style="color: black" id="h1">
+			<bold> CEO/Worker Pay Ratio, 2014 </bold>
+		</h1>
 
-	<div class="topnav" id="top">
-		<select id="options" style="font-size:12px">
-			<option value="All Industries"> All Industries </option>
-		</select>
-		<input id="search" type="text" onkeyup="key_up()" placeholder="Search for a company...">
-	</div>
+		<h2 style="color: black" id="h2">
+			The purpose of this visualization is to shed light on the disproportionate amount of money most CEOs in American companies make when compared to the average salary of their employees. The median ratio between CEO and employee pay is 197:1, it can be observed that after this mark the average CEO pay increases significantly.
 
-	<div id="blurb">
-		<b>Companies based on the S&ampP 500</b>
-	</div>
+			<br>
+			<br>
 
-	<div id="svgcontainer" style="text-align:center">
-	</div>
+			Each circle below represents a company from the S&ampP 500 in 2014. They are ordered along the axis according to the companies respective pay ratios. Note that the locations along the x-axis are approximate, positions may vary due to the force simulation. Each company is classed into an industry, using the <a href="https://en.wikipedia.org/wiki/Global_Industry_Classification_Standard"> Global Industry Classification Standard</a> (GICS). Consumer Discretionary and Consumer Staples were combined into one category for convinence. Additonally, circle size is used to represent CEO pay. It is interesting to observe that some companies have smaller pay ratios but higher CEO pay than the respective companies with similar ratios.
+		</h2>
 
-	<script type="text/javascript" src="payratio.js">
-	</script>
+		<div class="topnav" id="top">
+			<select id="options" style="font-size:12px">
+				<option value="All Industries"> All Industries </option>
+			</select>
+			<input id="search" type="text" onkeyup="key_up()" placeholder="Search for a company...">
+		</div>
 
-	<h2 style="color: black" id="h2">
-		<b>Created by:</b> Gabrella Lindsey in collaboration with Suresh Lodha
+		<div id="blurb">
+			<b>Companies based on the S&ampP 500</b>
+		</div>
 
-		<br>
-		<br>
-		
-		UCSC CSE163, Spring 2020
+		<div id="svgcontainer" style="text-align:center">
+		</div>
 
-		<br>
-		<br>
+		<script type="text/javascript" src="payratio.js">
+		</script>
 
-		<b>Files submitted:</b>
-		<ul>
-			<li>index.html</li>
-			<li>payratio.css</li>
-			<li>payratio.csv</li>
-			<li>payratio.js</li>
-		</ul>
+		<h2 style="color: black" id="h2">
+			<b>Created by:</b> Gabrella Lindsey in collaboration with Suresh Lodha
 
-		<br>
+			<br>
+			<br>
 
-		<b>Data Source:</b>
-		<a href="https://www.glassdoor.com/research/ceo-pay-ratio/"> Glassdoor CEO Pay vs. Worker Pay</a>
+			UCSC CSE163, Spring 2020
 
-		<br>
-		<br>
+			<br>
+			<br>
 
-		<b>Code/Reference Sources:</b>
-		<ul>
-			<li><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/CEOvsWorkerPay/"> CEOvsWorkerPay by Artem Litvak</a></li>
-			<li><a href="https://bl.ocks.org/d3indepth/fee5ce57c3fc3e94c3332577d1415df4"> Force layout (x axis) by d3indepth</a></li>
-			<li><a href="https://archive.nytimes.com/www.nytimes.com/interactive/2013/05/25/sunday-review/corporate-taxes.html">Design Insipration</a></li>
-			<li><a href="https://stackoverflow.com/questions/24784302/wrapping-text-in-d3">Code for Wrapping Text in D3</a></li>
-		</ul>
+			<b>Files submitted:</b>
+			<ul>
+				<li>index.html</li>
+				<li>payratio.css</li>
+				<li>payratio.csv</li>
+				<li>payratio.js</li>
+			</ul>
+
+			<br>
+
+			<b>Data Source:</b>
+			<a href="https://www.glassdoor.com/research/ceo-pay-ratio/"> Glassdoor CEO Pay vs. Worker Pay</a>
+
+			<br>
+			<br>
+
+			<b>Code/Reference Sources:</b>
+			<ul>
+				<li><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/CEOvsWorkerPay/"> CEOvsWorkerPay by Artem Litvak</a></li>
+				<li><a href="https://bl.ocks.org/d3indepth/fee5ce57c3fc3e94c3332577d1415df4"> Force layout (x axis) by d3indepth</a></li>
+				<li><a href="https://archive.nytimes.com/www.nytimes.com/interactive/2013/05/25/sunday-review/corporate-taxes.html">Design Insipration</a></li>
+				<li><a href="https://stackoverflow.com/questions/24784302/wrapping-text-in-d3">Code for Wrapping Text in D3</a></li>
+			</ul>
 
 
-		<br>
-		<b>Github link:</b> <a href="https://glindsey22.github.io/Enhancement-Project/"> Hosted on Github</a>
-	</h2>
+			<br>
+			<b>Github link:</b> <a href="https://glindsey22.github.io/Enhancement-Project/"> Hosted on Github</a>
+		</h2>
 
 
-</body></html>
+	</body></html>
