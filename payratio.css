@@ -1,15 +1,14 @@
 h1 {
-    padding-top: 15;
-    padding-left: 230;
+    text-align: center;
     font: 40px sans-serif;
 }
 
 h2 {
     text-align: left;
-    padding-left: 50;
-    padding-right: 300;
+    padding-left: 100;
+    padding-right: 100;
     text-indent: 0em;
-    font: 12px sans-serif;
+    font: 11px sans-serif;
 }
 
 hr {
@@ -24,8 +23,8 @@ hr {
 div.tooltip {
     position: absolute;
     text-align: left;
-    width: 165px;
-    height: 115px;
+    width: 185px;
+    height: 125px;
     padding: 2px;
     font: 11.5px sans-serif;
     background: aliceblue;
@@ -54,21 +53,38 @@ h1 {
     opacity: 0.4;
 }
 
-#topnav{ 
+.topnav {
+    width: 100%;
+    text-align: center;
+}
+
+#svgcontainer {
+    display: block;
+    padding-right: 150;
+}
+
+#blurb {
+    position: absolute;
+	text-align: left;
+	font: 8px sans-serif;
+    width: 70px;
+    height: 20px;
+}
+
+select {
+    padding: 4px;
+}
+
+/* Style the search box inside the navigation bar 
      margin-left: 15%; 
      padding: 15px; 
-     border-radius: 10px; 
-   } 
+     border-radius: 10px;
 
-/* Style the search box inside the navigation bar */
-.topnav input[type=text] {
-    position: absolute;
     left: 4%;
     top: 25%;
-    width: 15%;
-    float: right;
-    padding: 4px;
+    width: 15%;*/
+.topnav input[type=text] {
+    position: relative;
+    padding: 5px;
     font-size: 10px;
-    -webkit-transition: width 0.15s ease-in-out; 
-      transition: width 0.15s ease-in-out; 
 }

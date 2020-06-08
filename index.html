@@ -1,32 +1,76 @@
+<!--- https://bl.ocks.org/d3indepth/fee5ce57c3fc3e94c3332577d1415df4 --->
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title>CEO/Worker Pay Ratio</title>
-    <link rel="stylesheet" type="text/css" href="payratio.css">
-    <script src="https://d3js.org/d3.v5.js"></script>
-    </script>
-    <style type="text/css"></style>
+	<meta charset="utf-8">
+	<title>CEO/Worker Pay Ratio</title>
+	<link rel="stylesheet" type="text/css" href="payratio.css">
+	<script src="https://d3js.org/d3.v5.js"></script>
+	</script>
+	<style type="text/css"></style>
 </head>
 
 <body>
-    <h1 style="color: black">
-        <bold> CEO/Worker Pay Ratio, 2014 </bold>
-    </h1>
+	<h1 style="color: black" id="h1">
+		<bold> CEO/Worker Pay Ratio, 2014 </bold>
+	</h1>
 
-    <h2 style="color: black">
-        The purpose of this visualization is to shed light on the disproportionate amount of money most CEOs in American companies make when compared to the average salary of their respective employees. The median ratio between CEO and average employee pay is 197:1, it can be observed that after this mark the average CEO pay increases significantly, as can be seen in the increased radii of the circles.
-    </h2>
+	<h2 style="color: black" id="h2">
+		The purpose of this visualization is to shed light on the disproportionate amount of money most CEOs in American companies make when compared to the average salary of their respective employees. The median ratio between CEO and average employee pay is 197:1, it can be observed that after this mark the average CEO pay increases significantly, as can be seen in the increased radii of the circles. Note that the x-axis is approximate, positions may vary due to the force simulation.
+	</h2>
 
-    <div id="svgcontainer"></div>
+	<div class="topnav" id="top">
+		<select id="options" style="font-size:12px">
+			<option value="All Industries"> All Industries </option>
+		</select>
+		<input id="search" type="text" onkeyup="key_up()" placeholder="Search for a company...">
+	</div>
 
-    <script type="text/javascript" src="payratio.js">
-    </script>
+	<div id="blurb">
+		<b>Companies based on the S&ampP 500</b>
+	</div>
 
-    <div class="topnav">
-        <input id="search" type="text" onkeyup="key_up()" placeholder="Search for a company...">
-    </div>
+	<div id="svgcontainer" style="text-align:center">
+	</div>
 
-</body>
+	<script type="text/javascript" src="payratio.js">
+	</script>
 
-</html>
+	<h2 style="color: black" id="h2">
+		<b>Created by:</b> Gabrella Lindsey in collaboration with Suresh Lodha
+
+		<br>
+
+		Spring 2020
+
+		<br>
+
+		<b>Files submitted:</b>
+
+		<ul>
+			<li>index.html</li>
+			<li>payratio.css</li>
+			<li>payratio.csv</li>
+			<li>payratio.js</li>
+		</ul>
+
+		<br>
+
+		<b>Data Source:</b>
+		<a href="https://www.glassdoor.com/research/ceo-pay-ratio/"> Glassdoor CEO Pay vs. Worker Pay</a>
+
+		<br>
+
+		<b>Code/Reference Sources:</b>
+		<ul>
+			<li><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/CEOvsWorkerPay/"> CEOvsWorkerPay by Artem Litvak</a></li>
+			<li><a href="https://bl.ocks.org/d3indepth/fee5ce57c3fc3e94c3332577d1415df4"> Force layout (x axis) by d3indepth</a></li>
+		</ul>
+
+
+		<br>
+		<b>Github link:</b> <a href="https://glindsey22.github.io/Enhancement-Project/"> Hosted on Github</a>
+	</h2>
+
+
+</body></html>
